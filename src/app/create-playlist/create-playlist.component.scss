@@ -2,6 +2,7 @@
     height: 89vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* Ensures spacing between elements in the flex container */
 }
 
 .spacer {
