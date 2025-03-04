@@ -1,27 +1,43 @@
-<h4 mat-dialog-title>{{dialogTitle}}</h4>
+<h4 mat-dialog-title>{{ dialogTitle }}</h4>
+
 <mat-dialog-content>
   <div style="margin-bottom: 10px;">
-    <!-- We can support text dialogs or dialogs where users must select items from a list -->
+    <!-- Support for text dialogs or selection list dialogs -->
     <ng-container *ngIf="dialogType === 'text'">
-      {{dialogText}}
+      {{ dialogText }}
     </ng-container>
+
     <ng-container *ngIf="dialogType === 'selection_list'">
       <mat-selection-list [(ngModel)]="selected_items">
         <mat-list-option *ngFor="let item of list" [value]="item.key">
-          {{item.title}}
+          {{ item.title }}
         </mat-list-option>
       </mat-selection-list>
     </ng-container>
   </div>
 </mat-dialog-content>
+
 <mat-dialog-actions>
-  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button [disabled]="dialogType === 'selection_list' && selected_items.length === 0" [color]="warnSubmitColor ? 'warn' : 'primary'" mat-flat-button type="submit" (click)="confirmClicked()">{{submitText}}</button>
+  <!-- Submit button with conditional disabling logic -->
+  <button 
+    [disabled]="dialogType === 'selection_list' && selected_items.length === 0" 
+    [color]="warnSubmitColor ? 'warn' : 'primary'" 
+    mat-flat-button 
+    type="submit" 
+    (click)="confirmClicked()">
+    {{ submitText }}
+  </button>
+
+  <!-- Spinner shown while submitting -->
   <div class="mat-spinner" *ngIf="submitClicked">
     <mat-spinner [diameter]="25"></mat-spinner>
   </div>
+
+  <!-- Spacer for layout -->
   <span class="spacer"></span>
+
+  <!-- Cancel button -->
   <button style="float: right;" mat-stroked-button mat-dialog-close>
-    {{cancelText}}
+    {{ cancelText }}
   </button>
 </mat-dialog-actions>
